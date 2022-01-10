@@ -1,0 +1,7 @@
+.idea/
+.terraform.lock.hcl
+.terraform/
+
+terraform.tfstate*
+
+modules/pipeline/files/packages
