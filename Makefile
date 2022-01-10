@@ -4,7 +4,7 @@ AWS_REGION ?= $(shell terraform output --raw aws_region)
 
 PIPELINE_STATE_MACHINE_ARN ?= $(shell terraform output --raw pipeline_state_machine_arn)
 
-all: build
+all: init apply login build push run
 
 init:
 	pip install --target modules/pipeline/files/packages/layer/python labelbox
@@ -24,4 +24,4 @@ push:
 	docker push $(PIPELINE_TASKS_REPOSITORY_URL):latest
 
 run:
-	aws stepfunctions start-execution --state-machine-arn $(ETL_STATE_MACHINE_ARN)
+	aws stepfunctions start-execution --state-machine-arn $(PIPELINE_STATE_MACHINE_ARN)
